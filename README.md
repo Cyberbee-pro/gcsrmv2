@@ -71,7 +71,8 @@ Example: `uj/navbar/add-links`
 Once you’ve completed your work:
 
 1. **Create a pull request**:  
-   - Ensure that the PR is linked to the issue you worked on.  
+   - Ensure that the PR is linked to the issue you worked on in the 'Development' section on the right.
+   - Add appropriate labels.
    - Name your PR descriptively.
 
 2. **Include detailed information**:  
@@ -82,20 +83,17 @@ Once you’ve completed your work:
 
 3. **Add yourself and reviewer**:  
    - Add yourself as the assignee of the PR.
-   - Add your Tech Lead as the reviewer.
+   - Add your Tech Lead, Vice President, and President as the reviewers.
 
 ---
 
 🔒 **Important PR Rules**:
 
-1. **Do NOT merge into main**:  
-   Under no circumstances should contributors merge their own PRs into the main branch. This is reserved for Tech Leads.
-
-2. **Workflows**:  
+1. **Workflows**:  
    - After creating your PR, notify in the respective issue thread.  
-   - Once your PR is reviewed and approved by the Tech Lead, the changes will be merged into the staging branch.
+   - Once your PR is reviewed and approved, the changes will be merged into the staging branch.
 
-3. **Closing the issue**:  
+2. **Closing the issue**:  
    When the PR is merged successfully, the Tech Lead will close the issue. You don’t need to close the issue yourself.
 
 ---
