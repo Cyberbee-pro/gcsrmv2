@@ -36,7 +36,7 @@ const Navbar = () => {
     ];
 
     return (
-        <div className="bg-black flex justify-between items-center h-20 py-2 mx-auto px-4 md:px-16 lg:px-16 text-white z-50 font-dmSans">
+        <div className="bg-black flex justify-between items-center h-20 py-2 mx-auto px-4 md:px-16 lg:pl-16 lg:pr-4 text-white z-50 font-dmSans">
             <img
                 src="logo.png"
                 className="h-8 md:h-10 cursor-pointer"
