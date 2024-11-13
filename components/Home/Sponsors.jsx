@@ -1,12 +1,28 @@
 import React from 'react';
-
-const sponsors = [
-    { name: "SWOC", logo: "https://res.cloudinary.com/doslhy0tq/image/upload/v1729971260/SWOC_mfzb98.png" },
-    { name: "Linux Foundation", logo: "https://www.linuxfoundation.org/hubfs/lf-stacked-color.svg" },
-    { name: "Genxyz", logo: "https://res.cloudinary.com/doslhy0tq/image/upload/v1729540377/xyz-logo-color_mrldu1.svg" }
-];
+import { useEffect, useState } from "react";
+// const sponsors = [
+//     { name: "SWOC", logo: "https://res.cloudinary.com/doslhy0tq/image/upload/v1729971260/SWOC_mfzb98.png" },
+//     { name: "Linux Foundation", logo: "https://www.linuxfoundation.org/hubfs/lf-stacked-color.svg" },
+//     { name: "Genxyz", logo: "https://res.cloudinary.com/doslhy0tq/image/upload/v1729540377/xyz-logo-color_mrldu1.svg" }
+// ];
 
 const Sponsors = () => {
+    const [sponsors, setSponsors] = useState([]);
+    useEffect(() => {
+        const fetchSponsors = async () => {
+            try {
+                const response = await fetch("../api/v1/sponsers");
+                const result = await response.json(); 
+                console.log("hello")
+                setSponsors(result.data);
+            } catch (error) {
+                console.error("Error fetching sponsors:", error);
+            }
+        };
+
+        fetchSponsors();
+    }, []);
+
     return (
         <div className="py-12 text-center mb-10">
             <h2 className="text-4xl text-white mb-10 font-bold font-poppins">Sponsors</h2>
