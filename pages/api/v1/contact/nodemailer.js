@@ -7,14 +7,14 @@ export const sendmail = async (name, email, query) => {
             port: 465,
             secure: true,
             auth: {
-                user: "aditya0@zohomail.in", // Club Query Zoho email
-                pass: process.env
+                user: process.env.SENDER_EMAIL, // Club Query Zoho email
+                pass: process.env.SENDER_PASS
             }
         });
 
         const mailOptions = {
-            from: "aditya0@zohomail.in",
-            to: "aditya0@zohomail.in", // Club community email address
+            from: process.env.SENDER_EMAIL,
+            to: process.env.RECIPIENT_EMAIL, // Club community email address
             subject: `Query from ${email}`,
             html: `Hello Support Team,<br><br>
                     Please find below a new inquiry from <br>Name: <strong>${name}</strong><br>Email: <em>${email}</em>.<br><br>
