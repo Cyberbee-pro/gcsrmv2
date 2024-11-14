@@ -1,15 +1,31 @@
 import { sendmail } from "./nodemailer";
 
+const escapeHTML = (str) => {
+    return str.replace(/[&<>"']/g, (char) => {
+        return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+        }[char];
+    });
+};
+
 export default async function handler(req, res) {
     if (req.method === "POST") {
         try {
-            const { name, email, message } = req.body;
+            let { name, email, message } = req.body;
 
             if (!name || !email || !message) {
                 return res
                     .status(400)
                     .json({ message: "All fields are required" });
             }
+            
+            name = escapeHTML(name);
+            email = escapeHTML(email);
+            message = escapeHTML(message);
 
             console.log("Received contact form data:", {
                 name,
