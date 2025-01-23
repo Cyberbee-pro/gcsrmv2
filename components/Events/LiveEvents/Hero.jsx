@@ -125,11 +125,19 @@ const Hero = ({
                                 )}
                             </div>
                             <button
-                                onClick={!isRegistrationClosed ? handleRegisterButtonClick : null}
+                                onClick={() => {
+                                    if (!isRegistrationClosed) {
+                                        if (!registrationLink) {
+                                            handleRegisterButtonClick();
+                                        } else {
+                                            Registration_Link();
+                                        }
+                                    }
+                                }}
                                 disabled={isRegistrationClosed}
                                 className={`ml-auto filter font-dmSans font-semibold w-full rounded-lg p-3 sm:p-5 text-xl ${isRegistrationClosed
-                                        ? "bg-gray-500 text-gray-200 cursor-not-allowed"
-                                        : "bg-bright_green hover:bg-green-700 text-black"
+                                    ? "bg-gray-500 text-gray-200 cursor-not-allowed"
+                                    : "bg-bright_green hover:bg-green-700 text-black"
                                     }`}
                             >
                                 {isRegistrationClosed ? "Registration Closed" : "Register Now"}
