@@ -31,10 +31,10 @@ const EmailDialogBox = ({ CertiOBJ, title, handelCloseModel }) => {
 
     const handleGetCertificate = async (e) => {
         e.preventDefault();
-        if (!validateEmail(formData.email)) {
-            setEmailError("Please enter a valid SRMIST email address.");
-            return;
-        }
+        // if (!validateEmail(formData.email)) {
+        //     setEmailError("Please enter a valid SRMIST email address.");
+        //     return;
+        // }
         setEmailError("");
         setIsButtonDisabled(true);
         try {
