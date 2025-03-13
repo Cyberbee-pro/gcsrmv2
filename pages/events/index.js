@@ -40,7 +40,15 @@ const Events = () => {
                     throw new Error("Failed to fetch data");
                 }
                 const data = await response.json();
-                setEventData(data.data);
+
+                // Sort events by date (most recent first)
+                const sortedEvents = data.data.sort((a, b) => {
+                    const dateA = new Date(a.event_date);
+                    const dateB = new Date(b.event_date);
+                    return dateB - dateA; // Sort in descending order (newest first)
+                });
+
+                setEventData(sortedEvents);
                 setFetched(true);
             } catch (error) {
                 console.error(error);
@@ -51,6 +59,10 @@ const Events = () => {
     }, []);
 
     const allEvents = eventData || [];
+
+    const activeEvents = allEvents.filter(event => event.is_active);
+
+    const pastEvents = allEvents.filter(event => !event.is_active);
 
     return (
         <div className="bg-bg_black">
@@ -65,8 +77,8 @@ const Events = () => {
                     content={`events, Community SRM, hackathons, workshops, ${allEvents
                         .map((event) => event.event_name)
                         .join(", ")}, ${allEvents
-                        .map((event) => event.venue)
-                        .join(", ")}, tech events, student events`}
+                            .map((event) => event.venue)
+                            .join(", ")}, tech events, student events`}
                 />
 
                 <meta
@@ -151,7 +163,7 @@ const Events = () => {
                 <div className="bg-black/40 -top-8 lg:top-0 lg:p-8 md:p-12 lg:px-16 lg:py-24 flex justify-center items-center">
                     <div className="mt-10 relative z-10">
                         {eventData &&
-                        eventData.filter((event) => event.is_active).length >
+                            eventData.filter((event) => event.is_active).length >
                             0 ? (
                             eventData.map(
                                 (event, index) =>
@@ -193,36 +205,36 @@ const Events = () => {
             <div className="flex flex-wrap justify-center gap-4 items-center pb-16  md:pb-28">
                 {!fetched
                     ? Array.from({ length: 4 }, (_, index) => (
-                          <div
-                              key={index}
-                              className="w-96 sm:w-1/2 md:w-1/3 lg:w-1/2 xl:w-1/3 pr-4 lg:pl-10"
-                          >
-                              <PastEventsSkeleton />
-                          </div>
-                      ))
+                        <div
+                            key={index}
+                            className="w-96 sm:w-1/2 md:w-1/3 lg:w-1/2 xl:w-1/3 pr-4 lg:pl-10"
+                        >
+                            <PastEventsSkeleton />
+                        </div>
+                    ))
                     : allEvents.map(
-                          (event, index) =>
-                              !event.is_active && (
-                                  <div
-                                      key={index}
-                                      className="w-full sm:w-1/2 md:w-1/3 lg:w-1/2 xl:w-1/3 p-4"
-                                  >
-                                      <PastEvents
-                                          poster={event.poster_url}
-                                          title={event.event_name}
-                                          certificateLink={event.certificate}
-                                          onButtonClick={handleButtonClick}
-                                          openModal={(certificateLink) =>
-                                              setIsModalOpen({
-                                                  open: true,
-                                                  certificate: certificateLink,
-                                                  slug: event.slug
-                                              })
-                                          }
-                                      />
-                                  </div>
-                              )
-                      )}
+                        (event, index) =>
+                            !event.is_active && (
+                                <div
+                                    key={index}
+                                    className="w-full sm:w-1/2 md:w-1/3 lg:w-1/2 xl:w-1/3 p-4"
+                                >
+                                    <PastEvents
+                                        poster={event.poster_url}
+                                        title={event.event_name}
+                                        certificateLink={event.certificate}
+                                        onButtonClick={handleButtonClick}
+                                        openModal={(certificateLink) =>
+                                            setIsModalOpen({
+                                                open: true,
+                                                certificate: certificateLink,
+                                                slug: event.slug
+                                            })
+                                        }
+                                    />
+                                </div>
+                            )
+                    )}
             </div>
 
             {isModalOpen && (
