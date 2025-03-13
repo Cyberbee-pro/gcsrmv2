@@ -4,8 +4,15 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const EmailDialogBox = ({ CertiOBJ, title, handelCloseModel }) => {
+    // const [formData, setFormData] = useState({
+    //     email: "",
+    //     type: "",
+    //     event: title
+    // });
+
+    //only for ossome hacks 2
     const [formData, setFormData] = useState({
-        email: "",
+        name: "",
         type: "",
         event: title
     });
@@ -22,7 +29,7 @@ const EmailDialogBox = ({ CertiOBJ, title, handelCloseModel }) => {
     };
 
     const handleEmailChange = (event) => {
-        setFormData({ ...formData, email: event.target.value });
+        setFormData({ ...formData, name: event.target.value });
     };
 
     const handleRoleChange = (event) => {
@@ -110,15 +117,15 @@ const EmailDialogBox = ({ CertiOBJ, title, handelCloseModel }) => {
                     <div className="rounded-md">
                         <div>
                             <label htmlFor="email" className="text-gray-800">
-                                Email address
+                                Name
                             </label>
                             <input
-                                placeholder="Enter SRMIST email"
+                                placeholder="Enter Name"
                                 className="appearance-none relative block w-full px-3 py-3 border border-gray-100 bg-gray-100 rounded-md focus:outline-none focus:ring-bright_green focus:border-bright_green focus:z-10 text-black mb-8 mt-2 font-semibold"
                                 required
-                                type="email"
-                                name="email"
-                                value={formData.email}
+                                type="text"
+                                name="text"
+                                value={formData.name}
                                 id="email"
                                 onChange={handleEmailChange}
                             />
@@ -157,11 +164,10 @@ const EmailDialogBox = ({ CertiOBJ, title, handelCloseModel }) => {
                             type="button"
                             onClick={handleDownload}
                             disabled={!certificate || isLoading}
-                            className={`${
-                                certificate
-                                    ? "group relative w-full flex justify-center py-3 px-4 border border-transparent font-bold rounded-md text-gray-900 bg-bright_green hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 mt-4"
-                                    : "mt-4 group relative w-full flex justify-center py-3 px-4 border border-transparent font-bold rounded-md text-gray-900 bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-not-allowed"
-                            }`}
+                            className={`${certificate
+                                ? "group relative w-full flex justify-center py-3 px-4 border border-transparent font-bold rounded-md text-gray-900 bg-bright_green hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 mt-4"
+                                : "mt-4 group relative w-full flex justify-center py-3 px-4 border border-transparent font-bold rounded-md text-gray-900 bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-not-allowed"
+                                }`}
                         >
                             Download Certificate
                         </button>
