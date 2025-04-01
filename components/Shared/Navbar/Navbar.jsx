@@ -31,12 +31,12 @@ const Navbar = () => {
         { id: 3, text: "Our Story", path: "/about" },
         { id: 4, text: "Events", path: "/events" },
         { id: 5, text: "Contact Us", path: "/contact" },
-        { id: 6, text: "Recruitment", path: "/recruitment" }
+
         // { id: 6, text: "Submission", path: "/submission" }
     ];
 
     return (
-        <div className="bg-black flex justify-between items-center h-20 py-2 mx-auto px-4 md:px-16 lg:px-16 text-white z-50 font-dmSans">
+        <div className="bg-black flex justify-between items-center h-20 py-2 mx-auto px-4 md:px-16 lg:pl-16 lg:pr-4 text-white z-50 font-dmSans">
             <img
                 src="logo.png"
                 className="h-8 md:h-10 cursor-pointer"
@@ -48,9 +48,8 @@ const Navbar = () => {
                 {navItems.map((item) => (
                     <li
                         key={item.id}
-                        className={`p-4 font-medium hover:text-green-500 m-2 cursor-pointer duration-300 ${
-                            currentPath === item.path ? "text-bright_green" : ""
-                        }`}
+                        className={`p-4 font-medium hover:text-green-500 m-2 cursor-pointer duration-300 ${currentPath === item.path ? "text-bright_green" : ""
+                            }`}
                         onClick={() => handleNavigation(item.path)}
                     >
                         {item.text}
@@ -65,20 +64,18 @@ const Navbar = () => {
                 )}
             </div>
             <ul
-                className={`fixed md:hidden top-20 right-0 w-full h-[calc(100%-5rem)] font-semibold text-md flex flex-col justify-start items-center space-y-6 bg-black transition-transform duration-500 z-50 ${
-                    nav
-                        ? "transform translate-x-0"
-                        : "transform translate-x-full"
-                }`}
+                className={`fixed md:hidden top-20 right-0 w-full h-[calc(100%-5rem)] font-semibold text-md flex flex-col justify-start items-center space-y-6 bg-black transition-transform duration-500 z-50 ${nav
+                    ? "transform translate-x-0"
+                    : "transform translate-x-full"
+                    }`}
             >
                 {navItems.map((item) => (
                     <li
                         key={item.id}
-                        className={`p-4 w-[80%] rounded-lg duration-300 hover:text-bright_green cursor-pointer font-poppins text-center first:mt-10 ${
-                            currentPath === item.path
-                                ? "text-black bg-bright_green"
-                                : "text-white bg-zinc-900"
-                        }`}
+                        className={`p-4 w-[80%] rounded-lg duration-300 hover:text-bright_green cursor-pointer font-poppins text-center first:mt-10 ${currentPath === item.path
+                            ? "text-black bg-bright_green"
+                            : "text-white bg-zinc-900"
+                            }`}
                         onClick={() => handleNavigation(item.path)}
                     >
                         {item.text}

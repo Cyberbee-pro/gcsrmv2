@@ -22,7 +22,7 @@ const Faq = () => {
                     {faqData.map((item, index) => (
                         <div
                             key={index}
-                            className=" font-dmSans border-2 rounded-2xl mx-auto transition-transform ease-in-out duration-300 transform hover:shadow-lg hover:border-bright_green w-4/5 md:w-3/5"
+                            className=" font-dmSans border-2 rounded-2xl mx-auto transition-transform ease-in-out duration-300 transform hover:shadow-lg hover:border-bright_green w-4/5 md:w-3/5 overflow-hidden"
                             style={{ borderColor: "#374151" }}
                         >
                             <div
@@ -30,9 +30,9 @@ const Faq = () => {
                                 onClick={() => toggleDropdown(index)}
                             >
                                 <div
-                                    className={`flex items-center justify-between p-4 pl-6 transition ease-in-out duration-700 ${
+                                    className={`flex items-center justify-between p-4 pl-6 transition ease-in-out duration-700 rounded-2xl ${
                                         openAnswer === index
-                                            ? "bg-bright_green text-black rounded-t-2xl"
+                                            ? "bg-bright_green text-black"
                                             : ""
                                     }`}
                                 >
