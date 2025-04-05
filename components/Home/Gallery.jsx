@@ -94,7 +94,7 @@ const ServiceSlider = () => {
                 disableOnInteraction: true
             }}
             modules={[Autoplay, Pagination]}
-            className="overflow-hidden"
+            className="overflow-hidden pb-12"
         >
             {serviceData.map((item, index) => (
                 <SwiperSlide key={index}>
