@@ -91,7 +91,7 @@ const ServiceSlider = () => {
             }}
             autoplay={{
                 delay: 2000,
-                disableOnInteraction: true
+                pauseOnHover: true
             }}
             modules={[Autoplay, Pagination]}
             className="overflow-hidden pb-12"
