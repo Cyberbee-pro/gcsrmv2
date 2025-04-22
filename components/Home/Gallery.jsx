@@ -20,6 +20,8 @@ import img8 from "../../public/Home/8.JPG";
 import img9 from "../../public/Home/9.JPG";
 import img10 from "../../public/Home/10.JPG";
 import img11 from "../../public/Home/11.jpg";
+import img12 from "../../public/Home/12.JPG";
+import img13 from "../../public/Home/13.JPG";
 
 const serviceData = [
     img1,
@@ -32,7 +34,9 @@ const serviceData = [
     img8,
     img9,
     img10,
-    img11
+    img11,
+    img12,
+    img13
 ];
 
 const ServiceSlider = () => {
@@ -83,14 +87,14 @@ const ServiceSlider = () => {
             //     slideShadows: false
             // }}
             pagination={{
-                dynamicBullets: true
+                clickable: true
             }}
             autoplay={{
                 delay: 2000,
-                disableOnInteraction: true
+                pauseOnHover: true
             }}
             modules={[Autoplay, Pagination]}
-            className="overflow-hidden"
+            className="overflow-hidden pb-12"
         >
             {serviceData.map((item, index) => (
                 <SwiperSlide key={index}>
