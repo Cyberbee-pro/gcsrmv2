@@ -1,4 +1,3 @@
-import Contact from "@/utils/models/sponser.model";
 import DBInstance from "@/utils/db";
 import Sponsor from "@/utils/models/sponser.model";
 DBInstance();
