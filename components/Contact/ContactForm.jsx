@@ -35,13 +35,76 @@ function ContactForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Frontend validation before sending
+        if (!formData.name.trim() || formData.name.trim().length < 2) {
+            toast.error("Name must be at least 2 characters long.", {
+                position: "top-center",
+                autoClose: 5000,
+                theme: "colored"
+            });
+            return;
+        }
+
+        if (!formData.email.trim()) {
+            toast.error("Email is required.", {
+                position: "top-center",
+                autoClose: 5000,
+                theme: "colored"
+            });
+            return;
+        }
+
+        if (emailError) {
+            toast.error("Please enter a valid email address.", {
+                position: "top-center",
+                autoClose: 5000,
+                theme: "colored"
+            });
+            return;
+        }
+
+        if (!formData.message.trim() || formData.message.trim().length < 10) {
+            toast.error("Message must be at least 10 characters long.", {
+                position: "top-center",
+                autoClose: 5000,
+                theme: "colored"
+            });
+            return;
+        }
+
+        if (formData.message.trim().length > 2000) {
+            toast.error("Message must be less than 2000 characters.", {
+                position: "top-center",
+                autoClose: 5000,
+                theme: "colored"
+            });
+            return;
+        }
+
         setIsSubmitting(true);
 
+        // Log the data being sent for debugging
+        console.log("📤 Sending form data:", {
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            message: formData.message.trim(),
+            lengths: {
+                name: formData.name.trim().length,
+                email: formData.email.trim().length,
+                message: formData.message.trim().length
+            }
+        });
+
         axios
-            .post("/api/v1/contact", formData)
+            .post("/api/v1/contact", {
+                name: formData.name.trim(),
+                email: formData.email.trim(),
+                message: formData.message.trim()
+            })
             .then((response) => {
-                console.log("Response:", response.data);
-                toast.success("Your form has been submitted successfully!", {
+                console.log("✅ Response:", response.data);
+                toast.success(response.data.message || "Your form has been submitted successfully!", {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -56,25 +119,39 @@ function ContactForm() {
             })
             .catch((error) => {
                 console.error("Error:", error);
-                toast.error(
-                    "There was an error submitting your form. Please try again.",
-                    {
-                        position: "top-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored"
-                    }
-                );
+
+                // Get specific error message from API response
+                let errorMessage = "There was an error submitting your form. Please try again.";
+
+                if (error.response && error.response.data) {
+                    errorMessage = error.response.data.message || errorMessage;
+                    console.log("API Error Details:", error.response.data);
+                }
+
+                toast.error(errorMessage, {
+                    position: "top-center",
+                    autoClose: 7000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored"
+                });
                 setIsSubmitting(false);
             });
     };
 
-    const isFormValid =
-        formData.name && formData.email && formData.message && !emailError;
+    const isFormValid = () => {
+        return (
+            formData.name.trim().length >= 2 &&
+            formData.name.trim().length <= 100 &&
+            formData.email.trim() &&
+            !emailError &&
+            formData.message.trim().length >= 10 &&
+            formData.message.trim().length <= 2000
+        );
+    };
 
     return (
         <>
@@ -94,44 +171,68 @@ function ContactForm() {
                         >
                             Send Us Your Queries
                         </p>
-                        <input
-                            required
-                            type="text"
-                            name="name"
-                            placeholder="Name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className="border-b-2 border-gray text-white font-dmSans bg-bg_black outline-none w-[90%] sm:w-[70%] my-8 mx-auto mt-10"
-                        />
-                        <input
-                            required
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className="border-b-2 border-gray text-white font-dmSans bg-bg_black outline-none w-[90%] sm:w-[70%] my-8 mx-auto"
-                        />
-                        {emailError && (
-                            <p className="text-red-500 mx-auto">{emailError}</p>
-                        )}
-                        <input
-                            required
-                            type="text"
-                            name="message"
-                            placeholder="Enter Your Query"
-                            value={formData.message}
-                            onChange={handleChange}
-                            className="border-b-2 border-gray text-white font-dmSans bg-bg_black outline-none w-[90%] sm:w-[70%] my-8 mx-auto"
-                        />
+                        <div className="w-[90%] sm:w-[70%] mx-auto">
+                            <input
+                                required
+                                type="text"
+                                name="name"
+                                placeholder="Name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                className={`border-b-2 ${formData.name.length > 0 && formData.name.length < 2 ? 'border-red-500' : 'border-gray'} text-white font-dmSans bg-bg_black outline-none w-full my-8 mt-10`}
+                            />
+                            {formData.name.length > 0 && formData.name.length < 2 && (
+                                <p className="text-red-500 text-sm -mt-6 mb-4">Name must be at least 2 characters</p>
+                            )}
+                            <div className="text-right text-gray-400 text-xs -mt-6 mb-2">
+                                {formData.name.length}/100
+                            </div>
+                        </div>
+
+                        <div className="w-[90%] sm:w-[70%] mx-auto">
+                            <input
+                                required
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                className={`border-b-2 ${emailError ? 'border-red-500' : 'border-gray'} text-white font-dmSans bg-bg_black outline-none w-full my-8`}
+                            />
+                            {emailError && (
+                                <p className="text-red-500 text-sm -mt-6 mb-4">{emailError}</p>
+                            )}
+                        </div>
+
+                        <div className="w-[90%] sm:w-[70%] mx-auto">
+                            <textarea
+                                required
+                                name="message"
+                                placeholder="Enter Your Query (minimum 10 characters)"
+                                value={formData.message}
+                                onChange={handleChange}
+                                rows={4}
+                                className={`border-b-2 ${formData.message.length > 0 && formData.message.length < 10 ? 'border-red-500' : 'border-gray'} text-white font-dmSans bg-bg_black outline-none w-full my-8 resize-none`}
+                            />
+                            {formData.message.length > 0 && formData.message.length < 10 && (
+                                <p className="text-red-500 text-sm -mt-6 mb-2">Message must be at least 10 characters</p>
+                            )}
+                            {formData.message.length > 2000 && (
+                                <p className="text-red-500 text-sm -mt-6 mb-2">Message must be less than 2000 characters</p>
+                            )}
+                            <div className="text-right text-gray-400 text-xs -mt-6 mb-4">
+                                <span className={formData.message.length > 2000 ? 'text-red-500' : ''}>
+                                    {formData.message.length}/2000
+                                </span>
+                            </div>
+                        </div>
                         <button
                             onClick={handleSubmit}
-                            disabled={!isFormValid || isSubmitting}
-                            className={`text-black bg-bright_green font-dmSans font-bold  text-md md:text-lg rounded-full py-3 md:py-4 px-4 w-[40%] my-6 mx-auto ${
-                                !isFormValid || isSubmitting
+                            disabled={!isFormValid() || isSubmitting}
+                            className={`text-black bg-bright_green font-dmSans font-bold text-md md:text-lg rounded-full py-3 md:py-4 px-4 w-[40%] my-6 mx-auto transition-opacity ${!isFormValid() || isSubmitting
                                     ? "opacity-50 cursor-not-allowed"
-                                    : ""
-                            }`}
+                                    : "hover:bg-opacity-90"
+                                }`}
                         >
                             {isSubmitting ? "Submitting..." : "Submit"}
                         </button>
