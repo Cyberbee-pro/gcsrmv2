@@ -11,6 +11,6 @@ const sponsorSchema = new mongoose.Schema({
     }
 });
 
-const Sponsor = mongoose.model.Sponsor || mongoose.model("sponsors", sponsorSchema);
+const Sponsor = mongoose.models.sponsors || mongoose.model("sponsors", sponsorSchema);
 
 export default Sponsor;
