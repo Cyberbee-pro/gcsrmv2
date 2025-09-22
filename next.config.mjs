@@ -8,6 +8,15 @@ const nextConfig = {
                 hostname: "**"
             }
         ]
+    },
+    async redirects() {
+        return [
+            {
+                source: '/applyod',
+                destination: "http://10.1.105.62/srmleaveapp",
+                permanent: true,
+            }
+        ];
     }
 };
 
