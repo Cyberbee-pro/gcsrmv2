@@ -4,18 +4,18 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const EmailDialogBox = ({ CertiOBJ, title, handelCloseModel }) => {
-    // const [formData, setFormData] = useState({
-    //     email: "",
-    //     type: "",
-    //     event: title
-    // });
-
-    //only for ossome hacks 2
     const [formData, setFormData] = useState({
-        name: "",
+        email: "",
         type: "",
         event: title
     });
+
+    //only for ossome hacks 2
+    // const [formData, setFormData] = useState({
+    //     name: "",
+    //     type: "",
+    //     event: title
+    // });
     const [emailError, setEmailError] = useState("");
     const [certificate, setCertificate] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +29,7 @@ const EmailDialogBox = ({ CertiOBJ, title, handelCloseModel }) => {
     };
 
     const handleEmailChange = (event) => {
-        setFormData({ ...formData, name: event.target.value });
+        setFormData({ ...formData, email: event.target.value });
     };
 
     const handleRoleChange = (event) => {
@@ -38,10 +38,10 @@ const EmailDialogBox = ({ CertiOBJ, title, handelCloseModel }) => {
 
     const handleGetCertificate = async (e) => {
         e.preventDefault();
-        // if (!validateEmail(formData.email)) {
-        //     setEmailError("Please enter a valid SRMIST email address.");
-        //     return;
-        // }
+        if (!validateEmail(formData.email)) {
+            setEmailError("Please enter a valid SRMIST email address.");
+            return;
+        }
         setEmailError("");
         setIsButtonDisabled(true);
         try {
@@ -117,15 +117,15 @@ const EmailDialogBox = ({ CertiOBJ, title, handelCloseModel }) => {
                     <div className="rounded-md">
                         <div>
                             <label htmlFor="email" className="text-gray-800">
-                                Name
+                                Email
                             </label>
                             <input
-                                placeholder="Enter Name"
+                                placeholder="Enter Email"
                                 className="appearance-none relative block w-full px-3 py-3 border border-gray-100 bg-gray-100 rounded-md focus:outline-none focus:ring-bright_green focus:border-bright_green focus:z-10 text-black mb-8 mt-2 font-semibold"
                                 required
-                                type="text"
-                                name="text"
-                                value={formData.name}
+                                type="email"
+                                name="email"
+                                value={formData.email}
                                 id="email"
                                 onChange={handleEmailChange}
                             />
