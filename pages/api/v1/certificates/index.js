@@ -7,23 +7,23 @@ DBInstance();
 
 export default async function handler(req, res) {
     if (req.method === "POST") {
-        // const { email, event, type } = req.body;
+        const { email, event, type } = req.body;
 
         //only for ossome hacks 2
-        const { name, event, type } = req.body;
+        // const { name, event, type } = req.body;
 
-        // if (!email || !event || !type) {
-        //     return res
-        //         .status(400)
-        //         .json({ success: false, error: "All fields are required." });
-        // }
-
-        //only for ossome hacks 2
-        if (!name || !event || !type) {
+        if (!email || !event || !type) {
             return res
                 .status(400)
                 .json({ success: false, error: "All fields are required." });
         }
+
+        //only for ossome hacks 2
+        // if (!name || !event || !type) {
+        //     return res
+        //         .status(400)
+        //         .json({ success: false, error: "All fields are required." });
+        // }
 
         try {
             const eventData = await Event.findOne({ slug: event });
@@ -69,28 +69,28 @@ export default async function handler(req, res) {
             });
 
             const User = db.model(eventData.collection[type], userSchema);
-            // const userData = await User.findOne({ email });
+            const userData = await User.findOne({ email });
 
             //only for ossome hacks 2
-            const userData = await User.findOne({
-                name: { $regex: new RegExp(`^${name}$`, 'i') }
-            });
-
-            // if (!userData || !userData.checkin) {
-            //     return res.status(404).json({
-            //         success: false,
-            //         error: `No certificate found for email: ${email}`
-            //     });
-            // }
-
-            //only for ossome hacks 2
+            // const userData = await User.findOne({
+            //     name: { $regex: new RegExp(`^${name}$`, 'i') }
+            // });
 
             if (!userData) {
                 return res.status(404).json({
                     success: false,
-                    error: `No certificate found for name: ${name}`
+                    error: `No certificate found for email: ${email}`
                 });
             }
+
+            //only for ossome hacks 2
+
+            // if (!userData) {
+            //     return res.status(404).json({
+            //         success: false,
+            //         error: `No certificate found for name: ${name}`
+            //     });
+            // }
             // console.log("User data:", userData);
 
             const color =
