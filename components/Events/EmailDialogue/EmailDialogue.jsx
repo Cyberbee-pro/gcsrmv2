@@ -25,7 +25,7 @@ const EmailDialogBox = ({ CertiOBJ, title, handelCloseModel }) => {
         if (typeof email !== "string") {
             return false;
         }
-        return email.match(/^[^@]+@srmist\.edu\.in$/);
+        return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
     };
 
     const handleEmailChange = (event) => {
@@ -39,7 +39,7 @@ const EmailDialogBox = ({ CertiOBJ, title, handelCloseModel }) => {
     const handleGetCertificate = async (e) => {
         e.preventDefault();
         if (!validateEmail(formData.email)) {
-            setEmailError("Please enter a valid SRMIST email address.");
+            setEmailError("Please enter a valid email address.");
             return;
         }
         setEmailError("");
