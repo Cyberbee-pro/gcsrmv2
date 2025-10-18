@@ -1,10 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-// const sponsors = [
-//     { name: "SWOC", logo: "https://res.cloudinary.com/doslhy0tq/image/upload/v1729971260/SWOC_mfzb98.png" },
-//     { name: "Linux Foundation", logo: "https://www.linuxfoundation.org/hubfs/lf-stacked-color.svg" },
-//     { name: "Genxyz", logo: "https://res.cloudinary.com/doslhy0tq/image/upload/v1729540377/xyz-logo-color_mrldu1.svg" }
-// ];
+import { API_ENDPOINTS } from '@/utils/config';
 
 const Sponsors = () => {
     const [sponsors, setSponsors] = useState([]);
@@ -14,12 +10,21 @@ const Sponsors = () => {
         const fetchSponsors = async () => {
             try {
                 setLoading(true);
-                const response = await fetch("../api/v1/sponsers");
+                const response = await fetch(API_ENDPOINTS.SPONSORS.GET_ALL);
                 const result = await response.json();
-                console.log("hello")
-                setSponsors(result.data);
+
+                // Handle different response structures
+                if (result.success && result.data) {
+                    setSponsors(result.data);
+                } else if (Array.isArray(result)) {
+                    setSponsors(result);
+                } else {
+                    console.error("Unexpected response format:", result);
+                    setSponsors([]);
+                }
             } catch (error) {
                 console.error("Error fetching sponsors:", error);
+                setSponsors([]);
             } finally {
                 setLoading(false);
             }

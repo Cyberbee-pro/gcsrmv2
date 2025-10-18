@@ -41,7 +41,7 @@ const Navbar = () => {
                 src="logo.png"
                 className="h-8 md:h-10 cursor-pointer"
                 onClick={() =>
-                    (window.location.href = "https://githubsrmist.tech/")
+                    (window.location.href = "https://githubsrmist.in/")
                 }
             />
             <ul className="hidden md:flex space-x-6">

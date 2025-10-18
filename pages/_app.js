@@ -42,8 +42,8 @@ function MyApp({ Component, pageProps }) {
                 <meta name="google-site-verification" content="google-site-verification= " />
                 <meta property="og:site_name" content="GitHub Community SRM - The Official student-led community affiliated with GitHub, spearheading the open-source revolution at SRMIST." />
                 <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://githubsrmist.tech" />
-                <link rel="canonical" href="https://githubsrmist.tech" />
+                <meta property="og:url" content="https://githubsrmist.in" />
+                <link rel="canonical" href="https://githubsrmist.in" />
 
                 <meta property="image" content="../public/favicon.ico" />
                 <meta
@@ -73,14 +73,14 @@ function MyApp({ Component, pageProps }) {
                 <meta property="og:site_name" content="GitHub Community SRM" />
                 <meta property="og:title" content="GitHub Community SRMIST | Open Source at SRMIST" />
                 <meta property="og:description" content="GitHub Community SRM is the student-led open-source community at SRM Institute of Science and Technology." />
-                <meta property="og:url" content="https://githubsrmist.tech" />
+                <meta property="og:url" content="https://githubsrmist.in" />
                 <meta property="og:image" content="/public/Logo.png" />
                 <meta property="og:type" content="website" />
                 <meta property="og:see_also" content="https://github.com/SRM-IST-KTR" />
                 <meta property="og:see_also" content="https://www.instagram.com/githubsrm/" />
                 <meta property="og:see_also" content="https://www.linkedin.com/company/githubsrm" />
 
-                <link rel="canonical" href="https://githubsrmist.tech" />
+                <link rel="canonical" href="https://githubsrmist.in" />
 
                 <link rel="icon" href="/favicon.ico" />
 
@@ -91,13 +91,13 @@ function MyApp({ Component, pageProps }) {
                             "@context": "https://schema.org",
                             "@type": "Organization",
                             "name": "GitHub Community SRM",
-                            "url": "https://githubsrmist.tech",
-                            "logo": "https://githubsrmist.tech/logo.png",
+                            "url": "https://githubsrmist.in",
+                            "logo": "https://githubsrmist.in/logo.png",
                             "contactPoint": {
                                 "@type": "ContactPoint",
-                                "email": "community@githubsrmist.tech",
+                                "email": "community@githubsrmist.in",
                                 "contactType": "Customer Support",
-                                "url": "https://githubsrmist.tech/contact"
+                                "url": "https://githubsrmist.in/contact"
                             },
                             "sameAs": [
                                 "https://www.instagram.com/githubsrm/",

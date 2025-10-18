@@ -22,11 +22,11 @@ const Contact = () => {
                 <meta name="keywords" content="Contact, GitHub Community SRM, support, queries, FAQ, community help, reach out, open source support, SRMIST GitHub, GitHub Community support" />
                 <link
                     rel="canonical"
-                    href="https://githubsrmist.tech/contact"
+                    href="https://githubsrmist.in/contact"
                 />
                 <meta property="og:title" content="Contact Us | GitHub Community SRM | Support & Queries" />
                 <meta property="og:description" content="Need help or have a query? Contact the GitHub Community SRM team for assistance. Explore our FAQ section for quick answers." />
-                <meta property="og:url" content="https://githubsrmist.tech/contact" />
+                <meta property="og:url" content="https://githubsrmist.in/contact" />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="GitHub Community SRM" />
                 <meta property="og:image" content="/public/contact_us_image.png" />
@@ -36,19 +36,19 @@ const Contact = () => {
                 <meta name="twitter:description" content="Need help or have a query? Contact the GitHub Community SRM team for support and assistance. Check out our FAQ section for quick answers." />
                 <meta name="twitter:image" content="/public/Logo.png" />
                 <meta name="twitter:site" content="@GithubSrm" />
-                <meta name="twitter:url" content="https://githubsrmist.tech/contact" />
+                <meta name="twitter:url" content="https://githubsrmist.in/contact" />
                 <script type="application/ld+json">
                     {JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "ContactPage",
-                        "url": "https://githubsrmist.tech/contact",
+                        "url": "https://githubsrmist.in/contact",
                         "description": "Contact GitHub Community SRM for support, queries, or assistance. We are here to help with open source and community-related questions.",
                         "contactOption": [
                             {
                                 "@type": "ContactPoint",
                                 "telephone": "+91-9474182596",
                                 "contactType": "Customer Support",
-                                "email": "support@githubsrmist.tech"
+                                "email": "support@githubsrmist.in"
                             }
                         ]
                     })}
