@@ -4,6 +4,7 @@ import ProfileCard from "@/components/Team/profileCard";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Head from "next/head";
 import { set } from "mongoose";
+import { API_ENDPOINTS } from '@/utils/config';
 
 const ProfileSkeleton = () => {
     return (
@@ -30,35 +31,42 @@ const Teams = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch("../api/v1/team");
+                const response = await fetch(API_ENDPOINTS.TEAM.GET_ALL);
                 if (!response.ok) {
                     throw new Error("Failed to fetch data");
                 }
                 const data = await response.json();
 
-                const convenorData = data.data.find(
+                // Handle both response formats: direct array or {data: array}
+                const teamData = Array.isArray(data) ? data : (data.data || []);
+
+                const convenorData = teamData.find(
                     (item) => item.position === "Convenor"
                 );
-                const presidentData = data.data.find(
+                const presidentData = teamData.find(
                     (item) => item.position === "President"
                 );
-                const vpData = data.data.find(
+                const vpData = teamData.find(
                     (item) => item.position === "vicePresident"
                 );
 
-                // const adminsData = data.data.filter(
+                console.log("Convenor:", convenorData);
+                console.log("President:", presidentData);
+                console.log("VP:", vpData);
+
+                // const adminsData = teamData.filter(
                 //     (item) => item.position === "Admin"
                 // );
-                const directorsData = data.data.filter(
+                const directorsData = teamData.filter(
                     (item) => item.position === "Director"
                 );
-                const leadsData = data.data.filter(
+                const leadsData = teamData.filter(
                     (item) => item.position === "Lead"
                 );
-                const associatesData = data.data.filter(
+                const associatesData = teamData.filter(
                     (item) => item.position === "Associate"
                 );
-                const membersData = data.data.filter(
+                const membersData = teamData.filter(
                     (item) => item.position === "Member"
                 );
 
@@ -72,7 +80,8 @@ const Teams = () => {
                 setMembers(membersData);
                 setFetched(true);
             } catch (error) {
-                console.error(error);
+                console.error("Error fetching team data:", error);
+                setFetched(true); // Set to true even on error to stop loading state
             }
         };
 
@@ -139,7 +148,7 @@ const Teams = () => {
                     <meta property="og:title" content="Meet the Team | GitHub Community SRM | Technical, Corporate, Creative" />
                     <meta property="og:description" content="Meet the team behind GitHub Community SRM, including the President, Vice President, Leads, Associates, and Members from the Technical, Corporate, and Creative domains." />
                     <meta property="og:image" content="/public/Logo.png" />
-                    <meta property="og:url" content="https://githubsrmist.tech/team" />
+                    <meta property="og:url" content="https://githubsrmist.in/team" />
                     <meta property="og:type" content="website" />
 
                     <meta name="twitter:card" content="/public/Logo.png" />
@@ -153,7 +162,7 @@ const Teams = () => {
                             "@context": "https://schema.org",
                             "@type": "Organization",
                             "name": "GitHub Community SRM",
-                            "url": "https://githubsrmist.tech",
+                            "url": "https://githubsrmist.in",
                             "logo": "/public/Logo.png",
                             "sameAs": [
                                 "https://github.com/SRM-IST-KTR",
@@ -205,7 +214,7 @@ const Teams = () => {
                         <div className="flex justify-center mt-8">
                             <ProfileSkeleton />
                         </div>
-                    ) : (
+                    ) : convenor ? (
                         <div className="flex justify-center mt-8">
                             <ProfileCard
                                 photo={convenor.pictureUrl}
@@ -214,6 +223,8 @@ const Teams = () => {
                                 socials={convenor.socials}
                             />
                         </div>
+                    ) : (
+                        <p className="text-center mt-8 text-gray-400">No convenor data available</p>
                     )}
 
                     <div className="flex flex-col md:flex-row justify-center items-center gap-8 lg:gap-16 p-8 mt-16">
@@ -223,13 +234,15 @@ const Teams = () => {
                             </h2>
                             {!fetched ? (
                                 <ProfileSkeleton />
-                            ) : (
+                            ) : president ? (
                                 <ProfileCard
                                     photo={president.pictureUrl}
                                     name={president.name}
                                     caption={president.caption}
                                     socials={president.socials}
                                 />
+                            ) : (
+                                <p className="text-center text-gray-400">No president data available</p>
                             )}
                         </div>
 
@@ -239,13 +252,15 @@ const Teams = () => {
                             </h2>
                             {!fetched ? (
                                 <ProfileSkeleton />
-                            ) : (
+                            ) : vp ? (
                                 <ProfileCard
                                     photo={vp.pictureUrl}
                                     name={vp.name}
                                     caption={vp.caption}
                                     socials={vp.socials}
                                 />
+                            ) : (
+                                <p className="text-center text-gray-400">No vice president data available</p>
                             )}
                         </div>
                     </div>

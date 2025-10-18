@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API_ENDPOINTS } from '@/utils/config';
 
 function ContactForm() {
     const [formData, setFormData] = useState({
@@ -97,7 +98,7 @@ function ContactForm() {
         });
 
         axios
-            .post("/api/v1/contact", {
+            .post(API_ENDPOINTS.CONTACT.SEND_MESSAGE, {
                 name: formData.name.trim(),
                 email: formData.email.trim(),
                 message: formData.message.trim()
@@ -230,8 +231,8 @@ function ContactForm() {
                             onClick={handleSubmit}
                             disabled={!isFormValid() || isSubmitting}
                             className={`text-black bg-bright_green font-dmSans font-bold text-md md:text-lg rounded-full py-3 md:py-4 px-4 w-[40%] my-6 mx-auto transition-opacity ${!isFormValid() || isSubmitting
-                                    ? "opacity-50 cursor-not-allowed"
-                                    : "hover:bg-opacity-90"
+                                ? "opacity-50 cursor-not-allowed"
+                                : "hover:bg-opacity-90"
                                 }`}
                         >
                             {isSubmitting ? "Submitting..." : "Submit"}

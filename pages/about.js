@@ -34,7 +34,7 @@ function AboutUs() {
                     />
                     <link
                         rel="canonical"
-                        href="https://githubsrmist.tech/about"
+                        href="https://githubsrmist.in/about"
                     />
 
                     <meta name="twitter:card" content="/public/logo.png" />
@@ -50,7 +50,7 @@ function AboutUs() {
                     <meta name="twitter:site" content="@GithubSrm" />
                     <meta
                         name="twitter:url"
-                        content="https://githubsrmist.tech/about"
+                        content="https://githubsrmist.in/about"
                     />
 
                     <meta
@@ -63,7 +63,7 @@ function AboutUs() {
                     />
                     <meta
                         property="og:url"
-                        content="https://githubsrmist.tech/about"
+                        content="https://githubsrmist.in/about"
                     />
                     <meta property="og:image" content="/public/logo.png" />
                     <meta property="og:type" content="website" />

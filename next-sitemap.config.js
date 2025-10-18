@@ -1,4 +1,4 @@
 module.exports = {
-    siteUrl: 'https://githubsrmist.tech',
+    siteUrl: 'https://githubsrmist.in',
     generateRobotsTxt: true,
 };
