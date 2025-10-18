@@ -7,6 +7,7 @@ import RegisterDialogue from "@/components/Events/Register_dialogue/Registerdial
 import Hero from "@/components/Events/LiveEvents/Hero";
 import heroimg_events from "@/public/heroimg_events.png";
 import Head from "next/head";
+import { API_ENDPOINTS } from "@/utils/config";
 
 const Events = () => {
     const [eventData, setEventData] = useState(null);
@@ -35,7 +36,7 @@ const Events = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch("../api/v1/events");
+                const response = await fetch(API_ENDPOINTS.EVENTS.GET_ALL);
                 if (!response.ok) {
                     throw new Error("Failed to fetch data");
                 }
@@ -91,7 +92,7 @@ const Events = () => {
                 />
                 <meta
                     property="og:image"
-                    content="https://githubsrmist.tech/logo.png"
+                    content="https://githubsrmist.in/logo.png"
                 />
                 <meta
                     property="og:image:alt"
@@ -108,7 +109,7 @@ const Events = () => {
                 />
                 <meta
                     name="twitter:image"
-                    content="https://githubsrmist.tech/logo.png"
+                    content="https://githubsrmist.in/logo.png"
                 />
 
                 <script type="application/ld+json">
@@ -116,10 +117,10 @@ const Events = () => {
                         "@context": "https://schema.org",
                         "@type": "Event",
                         name: "Hackathons, Workshops & Speaker Sessions | Github Community SRM Events",
-                        url: "https://githubsrmist.tech/events",
+                        url: "https://githubsrmist.in/events",
                         description:
                             "Discover and register for hackathons, workshops, and speaker sessions hosted by Github Community SRM.",
-                        image: "https://githubsrmist.tech/logo.png",
+                        image: "https://githubsrmist.in/logo.png",
                         location: {
                             "@type": "Place",
                             name: "SRM Institute of Science and Technology",

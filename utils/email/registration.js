@@ -51,8 +51,8 @@ export async function sendRegistrationEmail(participant, event) {
                     Data: `Registration Confirmation for ${event.event_name}`
                 }
             },
-            Source: `"GitHub Community SRM | Events" <events@githubsrmist.tech>`,
-            ReplyToAddresses: ["community@githubsrmist.tech"]
+            Source: `"GitHub Community SRM | Events" <events@githubsrmist.in>`,
+            ReplyToAddresses: ["community@githubsrmist.in"]
         };
 
         const command = new SendEmailCommand(params);
