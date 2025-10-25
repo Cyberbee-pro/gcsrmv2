@@ -17,8 +17,8 @@ const ProfileSkeleton = () => {
 const Teams = () => {
     const [fetched, setFetched] = useState(false);
     const [convenor, setConvenor] = useState(null);
-    const [president, setPresident] = useState(null);
-    const [vp, setVp] = useState(null);
+    const [president, setPresident] = useState([]);
+    const [vp, setVp] = useState([]);
 
     // const [admins, setAdmins] = useState([]);
     const [directors, setDirectors] = useState([]);
@@ -43,11 +43,11 @@ const Teams = () => {
                 const convenorData = teamData.find(
                     (item) => item.position === "Convenor"
                 );
-                const presidentData = teamData.find(
+                const presidentData = teamData.filter(
                     (item) => item.position === "President"
                 );
-                const vpData = teamData.find(
-                    (item) => item.position === "vicePresident"
+                const vpData = teamData.filter(
+                    (item) => item.position === "Vice President"
                 );
 
                 console.log("Convenor:", convenorData);
@@ -107,8 +107,8 @@ const Teams = () => {
     const generateKeywords = () => {
         const keywordsArray = [
             convenor?.name || "",
-            president?.name || "",
-            vp?.name || "",
+            president.length > 0 ? president.map(p => p.name).join(", ") : "",
+            vp.length > 0 ? vp.map(v => v.name).join(", ") : "",
             directors.length > 0 ? directors.map(director => director.name).join(", ") : "",
             leads.length > 0 ? leads.map(lead => lead.name).join(", ") : "",
             associates.length > 0 ? associates.map(associate => associate.name).join(", ") : "",
@@ -173,16 +173,22 @@ const Teams = () => {
                             "employee": [
                                 {
                                     "@type": "Person",
-                                    "name": president?.name,
-                                    "jobTitle": "President",
-                                    "image": president?.pictureUrl,
+                                    "name": convenor?.name,
+                                    "jobTitle": "Convenor",
+                                    "image": convenor?.pictureUrl,
                                 },
-                                {
+                                ...president.map(p => ({
                                     "@type": "Person",
-                                    "name": vp?.name,
+                                    "name": p.name,
+                                    "jobTitle": "President",
+                                    "image": p.pictureUrl,
+                                })),
+                                ...vp.map(v => ({
+                                    "@type": "Person",
+                                    "name": v.name,
                                     "jobTitle": "Vice President",
-                                    "image": vp?.pictureUrl,
-                                },
+                                    "image": v.pictureUrl,
+                                })),
                                 ...leads.map(lead => ({
                                     "@type": "Person",
                                     "name": lead.name,
@@ -233,14 +239,22 @@ const Teams = () => {
                                 President
                             </h2>
                             {!fetched ? (
-                                <ProfileSkeleton />
-                            ) : president ? (
-                                <ProfileCard
-                                    photo={president.pictureUrl}
-                                    name={president.name}
-                                    caption={president.caption}
-                                    socials={president.socials}
-                                />
+                                <div className="flex gap-8">
+                                    <ProfileSkeleton />
+                                    <ProfileSkeleton />
+                                </div>
+                            ) : president.length > 0 ? (
+                                <div className="flex flex-wrap justify-center gap-8">
+                                    {president.map((pres, index) => (
+                                        <ProfileCard
+                                            key={index}
+                                            photo={pres.pictureUrl}
+                                            name={pres.name}
+                                            caption={pres.caption}
+                                            socials={pres.socials}
+                                        />
+                                    ))}
+                                </div>
                             ) : (
                                 <p className="text-center text-gray-400">No president data available</p>
                             )}
@@ -251,14 +265,22 @@ const Teams = () => {
                                 Vice President
                             </h2>
                             {!fetched ? (
-                                <ProfileSkeleton />
-                            ) : vp ? (
-                                <ProfileCard
-                                    photo={vp.pictureUrl}
-                                    name={vp.name}
-                                    caption={vp.caption}
-                                    socials={vp.socials}
-                                />
+                                <div className="flex gap-8">
+                                    <ProfileSkeleton />
+                                    <ProfileSkeleton />
+                                </div>
+                            ) : vp.length > 0 ? (
+                                <div className="flex flex-wrap justify-center gap-8">
+                                    {vp.map((vice, index) => (
+                                        <ProfileCard
+                                            key={index}
+                                            photo={vice.pictureUrl}
+                                            name={vice.name}
+                                            caption={vice.caption}
+                                            socials={vice.socials}
+                                        />
+                                    ))}
+                                </div>
                             ) : (
                                 <p className="text-center text-gray-400">No vice president data available</p>
                             )}
