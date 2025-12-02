@@ -13,7 +13,9 @@ export const API_ENDPOINTS = {
     },
     EVENTS: {
         GET_ALL: `${API_BASE_URL}/api/events`, // GET - Retrieve all events
-        GET_BY_ID: (id) => `${API_BASE_URL}/api/event/${id}`, // GET - Retrieve a single event by ID
+        GET_BY_ID: (id) => `${API_BASE_URL}/api/events/${id}`, // GET - Retrieve a single event by ID
+        GET_BY_SLUG: (slug) => `${API_BASE_URL}/api/events/slug/${slug}`, // GET - Retrieve a single event by slug
+        REGISTER: `${API_BASE_URL}/api/events/register`, // POST - Register for an event
     },
     SPONSORS: {
         GET_ALL: `${API_BASE_URL}/api/sponsors`, // GET - Retrieve all sponsors
@@ -23,8 +25,7 @@ export const API_ENDPOINTS = {
     },
     CERTIFICATES: {
         GENERATE: `${API_BASE_URL}/api/certificate/generate`, // POST - Generate a certificate for an event participant
-        VERIFY: (certificateId) => `${API_BASE_URL}/api/certificate/verify/${certificateId}`, // GET - Verify the authenticity of a certificate
-        DOWNLOAD: (certificateId) => `${API_BASE_URL}/api/certificate/download/${certificateId}`, // GET - Download a verified certificate
+        DOWNLOAD: (certificateId) => `${API_BASE_URL}/api/certificate/download/${certificateId}?format=pdf`, // GET - Download a verified certificate (External)
     },
 };
 export const API_CONFIG = {

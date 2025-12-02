@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Confetti from "react-confetti";
+import { API_ENDPOINTS } from "../../../utils/config";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterDialogue = ({ slug, onRegistrationClose }) => {
     const [formData, setFormData] = useState({
@@ -52,7 +55,7 @@ const RegisterDialogue = ({ slug, onRegistrationClose }) => {
         try {
             console.log("Registering for event:", slug);
             console.log("Form data:", formData);
-            const response = await axios.post("/api/v1/events/register", {
+            const response = await axios.post(API_ENDPOINTS.EVENTS.REGISTER, {
                 ...formData,
                 slug
             });
@@ -60,21 +63,22 @@ const RegisterDialogue = ({ slug, onRegistrationClose }) => {
 
             if (response.status === 200) {
                 setSuccess(true);
+                toast.success("Registration successful!");
                 console.log("Registration successful:", response.data);
             }
         } catch (err) {
             setLoading(false);
-            if (
-                err.response?.data?.error ===
-                "Email already registered for this event."
-            ) {
-                setError("Email already registered");
-            } else {
-                setError(
-                    err.response?.data?.message ||
-                        "An error occurred during registration."
-                );
+            let errorMessage = "An error occurred during registration.";
+
+            // Prioritize the 'error' field from the response as per user report
+            if (err.response?.data?.error) {
+                errorMessage = err.response.data.error;
+            } else if (err.response?.data?.message) {
+                errorMessage = err.response.data.message;
             }
+
+            setError(errorMessage);
+            toast.error(errorMessage);
             console.error("Registration error:", err);
         }
     };
@@ -179,10 +183,9 @@ const RegisterDialogue = ({ slug, onRegistrationClose }) => {
                         type="submit"
                         disabled={loading || success}
                         className={`w-full px-4 py-2 font-bold rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2
-                            ${
-                                loading
-                                    ? "bg-gray-400"
-                                    : success
+                            ${loading
+                                ? "bg-gray-400"
+                                : success
                                     ? " bg-green-800 text-white"
                                     : "bg-bright_green text-black"
                             }`}
@@ -190,11 +193,22 @@ const RegisterDialogue = ({ slug, onRegistrationClose }) => {
                         {loading
                             ? "Registering..."
                             : success
-                            ? "Registered"
-                            : "Register"}
+                                ? "Registered"
+                                : "Register"}
                     </button>
                 </form>
             </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     );
 };
