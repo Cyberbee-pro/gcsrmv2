@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { API_ENDPOINTS } from "@/utils/config";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -46,20 +47,27 @@ const EmailDialogBox = ({ CertiOBJ, title, handelCloseModel }) => {
         setIsButtonDisabled(true);
         try {
             setIsLoading(true);
-            const response = await axios.post("/api/v1/certificates", formData);
+            const response = await axios.post(API_ENDPOINTS.CERTIFICATES.GENERATE, {
+                ...formData,
+                format: "pdf"
+            }, {
+                responseType: 'blob'
+            });
 
-            if (response.data && response.data.success) {
-                setCertificate(response.data.certificate);
+            if (response.status === 200) {
+                // The API returns the PDF binary directly.
+                // We create a Blob URL from the response data.
+                const file = new Blob([response.data], { type: 'application/pdf' });
+                const fileURL = URL.createObjectURL(file);
+                setCertificate(fileURL);
                 toast.success("Certificate generated successfully!");
             } else {
-                toast.error(
-                    response.data.error || "Failed to generate certificate"
-                );
+                toast.error("Failed to generate certificate");
                 setIsButtonDisabled(false);
             }
         } catch (error) {
-            const errorMessage =
-                error.response?.data?.error || "Error getting certificate";
+            console.error(error);
+            const errorMessage = "Error getting certificate";
             toast.error(errorMessage);
             setIsButtonDisabled(false);
         } finally {
@@ -71,7 +79,8 @@ const EmailDialogBox = ({ CertiOBJ, title, handelCloseModel }) => {
         if (certificate) {
             const link = document.createElement("a");
             link.href = certificate;
-            link.download = `${title}_certificate.png`;
+            link.download = `${title}_certificate.pdf`;
+            link.target = "_blank";
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
