@@ -30,9 +30,10 @@ const Navbar = () => {
         { id: 2, text: "Our Team", path: "/team" },
         { id: 3, text: "Our Story", path: "/about" },
         { id: 4, text: "Events", path: "/events" },
-        { id: 5, text: "Contact Us", path: "/contact" },
+        { id: 5, text: "Verify", path: "/verify" },
+        { id: 6, text: "Contact Us", path: "/contact" },
 
-        // { id: 6, text: "Submission", path: "/submission" }
+        // { id: 7, text: "Submission", path: "/submission" }
     ];
 
     return (

@@ -229,7 +229,7 @@ const VerifyPage = ({ initialCertificateId = "" }) => {
                         >
                             <input
                                 type="text"
-                                placeholder="Paste certificate ID (e.g. OSSOMEHACKS3-2026-BVAECO)"
+                                placeholder="Paste certificate ID (e.g. qwerty-xxxx-abCdEf)"
                                 value={queryId}
                                 onChange={(event) => setQueryId(event.target.value)}
                                 className="w-full px-4 py-3 rounded-xl border border-zinc-700 bg-bg_black text-white font-dmSans outline-none focus:border-bright_green"
@@ -254,10 +254,10 @@ const VerifyPage = ({ initialCertificateId = "" }) => {
                         {showResultCard && (
                             <article
                                 className={`mt-7 rounded-2xl border p-5 md:p-6 result-fade ${status === STATE_VALID
-                                        ? "border-bright_green/70 bg-bg_black"
-                                        : status === STATE_NOT_FOUND
-                                            ? "border-yellow-500/60 bg-[#15130b]"
-                                            : "border-red-500/70 bg-[#1a0d0d]"
+                                    ? "border-bright_green/70 bg-bg_black"
+                                    : status === STATE_NOT_FOUND
+                                        ? "border-yellow-500/60 bg-[#15130b]"
+                                        : "border-red-500/70 bg-[#1a0d0d]"
                                     }`}
                             >
                                 <h2 className="font-poppins text-2xl font-bold mb-4">{headingText}</h2>
