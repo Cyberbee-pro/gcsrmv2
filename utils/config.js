@@ -26,6 +26,7 @@ export const API_ENDPOINTS = {
     CERTIFICATES: {
         GENERATE: `${API_BASE_URL}/api/certificate/generate`, // POST - Generate a certificate for an event participant
         DOWNLOAD: (certificateId) => `${API_BASE_URL}/api/certificate/download/${certificateId}?format=pdf`, // GET - Download a verified certificate (External)
+        VERIFY: (certificateId) => `${API_BASE_URL}/api/certificate/verify/${certificateId}`, // GET - Verify certificate authenticity
     },
 };
 export const API_CONFIG = {
